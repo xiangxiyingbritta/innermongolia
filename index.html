@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内蒙古周末路书 · 草原 · 沙漠 · 星空</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5EDD6;
+    --ink: #1A1712;
+    --ink-mid: #3D3728;
+    --ink-light: #7A7060;
+    --sand: #F2E8D5;
+    --grass: #2E6B3E;
+    --grass-light: #4A9B5F;
+    --sky: #3B6EA5;
+    --sky-light: #5B9ED4;
+    --night: #0D1B2A;
+    --star: #FFE4A0;
+    --white: #FDFAF4;
+    --red: #B84232;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans SC',sans-serif; background:var(--white); color:var(--ink); overflow-x:hidden; }
+
+  /* HERO */
+  .hero {
+    position:relative; height:100vh; min-height:600px;
+    background:linear-gradient(160deg,#0D1B2A 0%,#1A3350 35%,#2E6B3E 65%,#C9A84C 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .hero-stars {
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%,rgba(255,228,160,.9) 0%,transparent 100%),
+      radial-gradient(1px 1px at 25% 8%,rgba(255,228,160,.7) 0%,transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 20%,rgba(255,228,160,1) 0%,transparent 100%),
+      radial-gradient(1px 1px at 55% 5%,rgba(255,228,160,.8) 0%,transparent 100%),
+      radial-gradient(1px 1px at 70% 18%,rgba(255,228,160,.6) 0%,transparent 100%),
+      radial-gradient(2px 2px at 85% 10%,rgba(255,228,160,.9) 0%,transparent 100%),
+      radial-gradient(1px 1px at 15% 30%,rgba(255,228,160,.5) 0%,transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 28%,rgba(255,228,160,.8) 0%,transparent 100%),
+      radial-gradient(1px 1px at 80% 32%,rgba(255,228,160,.6) 0%,transparent 100%),
+      radial-gradient(1.5px 1.5px at 48% 12%,rgba(255,228,160,.85) 0%,transparent 100%);
+  }
+  .grass-layer {
+    position:absolute; bottom:0; left:0; right:0; height:50%;
+    background:linear-gradient(180deg,transparent 0%,#1E4D2B 40%,#163820 100%);
+    clip-path:ellipse(60% 40% at 50% 100%);
+  }
+  .hero-content { position:relative; z-index:10; text-align:center; padding:2rem; }
+  .hero-tag {
+    display:inline-block; border:1px solid var(--gold); color:var(--gold);
+    font-size:11px; letter-spacing:4px; padding:6px 20px; margin-bottom:2rem; text-transform:uppercase;
+  }
+  .hero-title {
+    font-family:'Noto Serif SC',serif; font-size:clamp(2.4rem,6vw,4.5rem); font-weight:700;
+    color:#fff; line-height:1.2; margin-bottom:1rem; text-shadow:0 2px 20px rgba(0,0,0,.4);
+  }
+  .hero-title span { color:var(--gold-light); }
+  .hero-sub { font-size:1rem; color:rgba(255,255,255,.75); letter-spacing:2px; margin-bottom:3rem; }
+  .hero-pills { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .pill {
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    color:#fff; font-size:13px; padding:8px 18px; border-radius:100px; backdrop-filter:blur(4px);
+  }
+  .scroll-hint {
+    position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+    color:rgba(255,255,255,.5); font-size:12px; letter-spacing:2px; animation:bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform:translateX(-50%) translateY(0); }
+    50% { transform:translateX(-50%) translateY(6px); }
+  }
+
+  /* LAYOUT */
+  .container { max-width:900px; margin:0 auto; padding:0 2rem; }
+
+  /* STICKY NAV */
+  .sticky-nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(26,23,18,.95); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,168,76,.2);
+  }
+  .nav-inner {
+    max-width:900px; margin:0 auto; padding:0 2rem;
+    display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .nav-inner::-webkit-scrollbar { display:none; }
+  .nav-link {
+    color:rgba(255,255,255,.5); font-size:12px; letter-spacing:1.5px;
+    padding:14px 16px; text-decoration:none; white-space:nowrap;
+    border-bottom:2px solid transparent; transition:color .2s;
+  }
+  .nav-link:hover { color:var(--gold); border-bottom-color:var(--gold); }
+
+  /* SECTION HEADERS */
+  .section-header { padding:5rem 0 2.5rem; border-bottom:1px solid rgba(201,168,76,.3); margin-bottom:3rem; }
+  .day-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--gold);
+    font-size:11px; letter-spacing:3px; padding:6px 16px; margin-bottom:1.2rem;
+  }
+  .day-badge.day2 { background:var(--grass); color:#fff; }
+  .day-badge.day3 { background:var(--sand); color:var(--red); border:1px solid var(--red); }
+  .section-title {
+    font-family:'Noto Serif SC',serif; font-size:clamp(1.8rem,4vw,2.8rem);
+    font-weight:700; color:var(--ink); line-height:1.3;
+  }
+  .section-date { font-size:13px; color:var(--ink-light); margin-top:.5rem; letter-spacing:1px; }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:2.5rem; margin-bottom:4rem; }
+  .timeline::before {
+    content:''; position:absolute; left:8px; top:8px; bottom:8px; width:1px;
+    background:linear-gradient(180deg,var(--gold) 0%,rgba(201,168,76,.2) 100%);
+  }
+  .timeline.green-line::before { background:linear-gradient(180deg,var(--grass) 0%,rgba(46,107,62,.2) 100%); }
+  .timeline.red-line::before { background:linear-gradient(180deg,var(--red) 0%,rgba(184,66,50,.2) 100%); }
+  .timeline-item { position:relative; margin-bottom:2.5rem; }
+  .timeline-dot {
+    position:absolute; left:-2.5rem; top:4px; width:16px; height:16px;
+    border-radius:50%; background:var(--gold); border:3px solid var(--white);
+    box-shadow:0 0 0 1px var(--gold);
+  }
+  .timeline-dot.grass { background:var(--grass); box-shadow:0 0 0 1px var(--grass); }
+  .timeline-dot.sand { background:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .time-label { font-size:11px; letter-spacing:2px; color:var(--gold); font-weight:500; margin-bottom:4px; }
+  .time-label.grass { color:var(--grass-light); }
+  .time-label.sand { color:var(--red); }
+  .timeline-card {
+    background:var(--white); border:1px solid rgba(201,168,76,.2);
+    border-left:3px solid var(--gold); padding:1.2rem 1.4rem;
+  }
+  .timeline-card.grass-card { border-left-color:var(--grass); }
+  .timeline-card.sand-card { border-left-color:var(--red); }
+  .card-title { font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:.5rem; }
+  .card-body { font-size:.88rem; color:var(--ink-mid); line-height:1.75; }
+  .card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:.8rem; }
+  .tag { font-size:11px; padding:3px 10px; border-radius:2px; background:var(--gold-pale); color:var(--ink-mid); font-weight:500; }
+  .tag.green { background:#E6F3EB; color:var(--grass); }
+  .tag.red { background:#FCECEC; color:var(--red); }
+  .tag.sky { background:#E6F0F8; color:var(--sky); }
+  .tag.food { background:#FFF3E0; color:#8B4513; }
+
+  /* TRAIN CARD */
+  .train-card {
+    background:var(--ink); color:#fff; padding:2rem; margin:0 0 3rem;
+    position:relative; overflow:hidden;
+  }
+  .train-card::before {
+    content:'🚄'; position:absolute; right:-10px; top:50%; transform:translateY(-50%);
+    font-size:8rem; opacity:.06;
+  }
+  .train-route { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; }
+  .train-city { font-family:'Noto Serif SC',serif; font-size:1.5rem; font-weight:700; }
+  .train-time { font-size:1.6rem; font-weight:700; color:var(--gold-light); margin-top:4px; }
+  .train-arrow {
+    flex:1; height:1px; background:rgba(201,168,76,.4); position:relative; min-width:30px;
+  }
+  .train-arrow::after {
+    content:'→'; position:absolute; right:-8px; top:50%;
+    transform:translateY(-50%); color:var(--gold); font-size:16px;
+  }
+  .train-meta { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1rem; }
+  .train-meta-item label {
+    display:block; font-size:10px; letter-spacing:2px;
+    color:rgba(255,255,255,.4); margin-bottom:4px; text-transform:uppercase;
+  }
+  .train-meta-item span { font-size:.95rem; color:var(--gold-light); font-weight:500; }
+  .train-note { margin-top:1.4rem; padding-top:1.2rem; border-top:1px solid rgba(255,255,255,.08); font-size:.78rem; color:rgba(255,255,255,.35); }
+
+  /* COMMUTE BREAKDOWN */
+  .commute-box {
+    background:#111827; border:1px solid rgba(201,168,76,.25);
+    padding:1.4rem 1.6rem; margin-bottom:2rem;
+  }
+  .commute-title { font-size:11px; letter-spacing:3px; color:rgba(201,168,76,.6); text-transform:uppercase; margin-bottom:1rem; }
+  .commute-steps { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+  .commute-step {
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+    color:rgba(255,255,255,.8); font-size:.8rem; padding:6px 12px; border-radius:2px;
+  }
+  .commute-step strong { color:var(--gold-light); }
+  .commute-arrow { color:rgba(201,168,76,.5); font-size:.9rem; }
+  .commute-total {
+    margin-top:.8rem; padding-top:.8rem; border-top:1px solid rgba(255,255,255,.08);
+    font-size:.8rem; color:rgba(255,255,255,.5);
+  }
+  .commute-total strong { color:var(--gold); }
+
+  /* PHOTO SECTION */
+  .photo-section { background:var(--ink); padding:5rem 0; margin:4rem 0; }
+  .photo-section-title {
+    font-family:'Noto Serif SC',serif; font-size:clamp(1.5rem,3.5vw,2.2rem);
+    color:var(--gold-light); margin-bottom:.5rem;
+  }
+  .photo-section-sub { color:rgba(255,255,255,.5); font-size:.85rem; margin-bottom:3rem; letter-spacing:1px; }
+  .photo-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
+  .photo-card {
+    background:rgba(255,255,255,.05); border:1px solid rgba(201,168,76,.2); padding:1.4rem;
+  }
+  .photo-card-icon { font-size:2rem; margin-bottom:1rem; }
+  .photo-card h3 { font-family:'Noto Serif SC',serif; font-size:1rem; color:var(--gold-light); margin-bottom:.8rem; font-weight:600; }
+  .photo-tip {
+    font-size:.82rem; color:rgba(255,255,255,.6); line-height:1.7; margin-bottom:.5rem;
+    padding-left:1rem; border-left:2px solid rgba(201,168,76,.3);
+  }
+  .photo-label { font-size:10px; letter-spacing:2px; color:rgba(201,168,76,.5); text-transform:uppercase; margin-bottom:6px; margin-top:1rem; display:block; }
+
+  /* OUTFIT */
+  .outfit-section { padding:4rem 0; background:var(--sand); }
+  .outfit-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-top:2rem; }
+  .outfit-card { background:var(--white); border:1px solid rgba(201,168,76,.25); padding:1.4rem; text-align:center; }
+  .outfit-emoji { font-size:2.5rem; margin-bottom:.8rem; display:block; }
+  .outfit-card h3 { font-size:.9rem; font-weight:700; color:var(--ink); margin-bottom:.6rem; }
+  .outfit-card p { font-size:.8rem; color:var(--ink-light); line-height:1.65; }
+
+  /* PRACTICAL */
+  .practical-section { padding:5rem 0; }
+  .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin-top:2.5rem; }
+  .info-card { border:1px solid rgba(201,168,76,.2); padding:1.4rem; border-top:3px solid var(--gold); }
+  .info-card h3 { font-size:.9rem; font-weight:700; color:var(--ink); margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+  .info-icon { width:28px; height:28px; background:var(--gold-pale); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .info-list { list-style:none; font-size:.83rem; color:var(--ink-mid); line-height:1.8; }
+  .info-list li::before { content:'· '; color:var(--gold); font-weight:700; }
+
+  /* FOOD CARD */
+  .food-card {
+    background:var(--white); border:1px solid rgba(201,168,76,.2);
+    border-top:3px solid #8B4513; padding:1.3rem 1.5rem; margin:1rem 0;
+  }
+  .food-badge {
+    display:inline-block; background:#8B4513; color:#fff;
+    font-size:10px; letter-spacing:2px; padding:3px 10px; margin-bottom:.8rem;
+  }
+  .food-name { font-family:'Noto Serif SC',serif; font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:.5rem; }
+  .food-desc { font-size:.83rem; color:var(--ink-mid); line-height:1.7; }
+
+  /* COST TABLE */
+  .cost-section { background:var(--ink); padding:4rem 0; margin-top:4rem; }
+  .cost-table { width:100%; border-collapse:collapse; margin-top:2rem; font-size:.85rem; }
+  .cost-table th { text-align:left; padding:10px 16px; border-bottom:1px solid rgba(201,168,76,.3); color:rgba(255,255,255,.45); font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:400; }
+  .cost-table td { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); color:rgba(255,255,255,.8); }
+  .cost-table tr:last-child td { border-bottom:none; font-weight:700; color:var(--gold-light); font-size:.9rem; }
+  .cost-table .amount { color:var(--gold); font-weight:500; }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box { background:var(--gold-pale); border-left:4px solid var(--gold); padding:1.2rem 1.4rem; margin:2rem 0; }
+  .highlight-box p { font-size:.88rem; color:var(--ink-mid); line-height:1.75; }
+  .highlight-box strong { color:var(--ink); }
+
+  /* WARNING BOX */
+  .warning-box { background:#FFF8E1; border-left:4px solid #F59E0B; padding:1.2rem 1.4rem; margin:2rem 0; }
+  .warning-box p { font-size:.85rem; color:#78350F; line-height:1.75; }
+
+  /* NIGHT BLOCK */
+  .night-block { background:var(--night); border:1px solid rgba(91,158,212,.2); padding:1.4rem; margin:1rem 0; }
+  .night-block .card-title { color:var(--star); }
+  .night-block .card-body { color:rgba(255,255,255,.65); }
+
+  h2.block-title {
+    font-family:'Noto Serif SC',serif; font-size:1.4rem; font-weight:700; color:var(--ink);
+    border-bottom:2px solid var(--gold-pale); padding-bottom:.6rem; margin-bottom:1.5rem;
+  }
+
+  /* FOOTER */
+  .site-footer { background:var(--ink); padding:3rem; text-align:center; border-top:1px solid rgba(201,168,76,.2); }
+  .site-footer p { font-size:.8rem; color:rgba(255,255,255,.3); letter-spacing:2px; }
+  .site-footer strong { color:var(--gold); }
+
+  @media(max-width:640px) {
+    .train-route { flex-direction:column; gap:.5rem; }
+    .train-arrow { display:none; }
+    .photo-grid { grid-template-columns:1fr; }
+    .commute-steps { flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-stars"></div>
+  <div class="grass-layer"></div>
+  <div class="hero-content">
+    <div class="hero-tag">WEEKEND ROAD TRIP GUIDE · 亦庄出发版</div>
+    <h1 class="hero-title">北京 → 呼和浩特<br><span>草原 · 星空 · 沙漠</span></h1>
+    <p class="hero-sub">三天两夜 · 自驾路书 · 冰煮羊 · 出片攻略</p>
+    <div class="hero-pills">
+      <span class="pill">🚄 G2477 · 20:58发</span>
+      <span class="pill">🏨 呼市住两晚</span>
+      <span class="pill">🍲 泽成冰煮羊</span>
+      <span class="pill">🐎 希拉穆仁骑马</span>
+      <span class="pill">🏜 响沙湾沙漠</span>
+    </div>
+  </div>
+  <div class="scroll-hint">▼ SCROLL</div>
+</section>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#commute">通勤方案</a>
+    <a class="nav-link" href="#day1">周五 · 出发</a>
+    <a class="nav-link" href="#day2">周六 · 草原</a>
+    <a class="nav-link" href="#day3">周日 · 沙漠</a>
+    <a class="nav-link" href="#food">美食清单</a>
+    <a class="nav-link" href="#photo">出片攻略</a>
+    <a class="nav-link" href="#outfit">穿搭建议</a>
+    <a class="nav-link" href="#cost">费用总览</a>
+  </div>
+</nav>
+
+<!-- ===== 通勤方案 ===== -->
+<div id="commute" class="container">
+  <div class="section-header">
+    <div class="day-badge">出发前 · 亦庄→北京北</div>
+    <h2 class="section-title">从亦庄赶车方案</h2>
+    <p class="section-date">6:00下班，最晚赶上 G2477（20:58 发），留足时间</p>
+  </div>
+
+  <div class="commute-box">
+    <div class="commute-title">推荐路线 · 地铁全程约 75–90 分钟（周五晚高峰）</div>
+    <div class="commute-steps">
+      <div class="commute-step">🏢 <strong>亦庄上班地</strong><br><span style="font-size:.75rem;color:rgba(255,255,255,.5);">步行/骑车至地铁站</span></div>
+      <div class="commute-arrow">→</div>
+      <div class="commute-step">🚇 <strong>亦庄线</strong><br><span style="font-size:.75rem;color:rgba(255,255,255,.5);">荣昌东街/同济南路上车</span></div>
+      <div class="commute-arrow">→</div>
+      <div class="commute-step">🔄 <strong>宋家庄换乘</strong><br><span style="font-size:.75rem;color:rgba(255,255,255,.5);">换5号线北行</span></div>
+      <div class="commute-arrow">→</div>
+      <div class="commute-step">🔄 <strong>知春路换乘</strong><br><span style="font-size:.75rem;color:rgba(255,255,255,.5);">换13号线</span></div>
+      <div class="commute-arrow">→</div>
+      <div class="commute-step">🚉 <strong>西直门站</strong><br><span style="font-size:.75rem;color:rgba(255,255,255,.5);">步行400m至北京北</span></div>
+    </div>
+    <div class="commute-total">
+      全程约 <strong>75–90 分钟</strong>（周五晚高峰地铁拥挤，预留宽裕）。<br>
+      建议 <strong>18:00 准时出发 → 约 19:20–19:30 抵达北京北</strong>，高铁 20:58 发车，留约 90 分钟候车，从容取票进站。
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <p>⚠️ <strong>为什么不赶更早的车？</strong>亦庄到北京北全程换乘 2 次，周五晚高峰 6 点后地铁可能严重拥挤，实测最少需要 70 分钟，赶 19:xx 或 20:00 前发车的高铁风险太高。<strong>G2477（20:58 发）是最稳妥的选择</strong>，即使地铁稍慢，也完全来得及。另外，可以考虑下班后先打车到宋家庄或直接打车到北京北（约 40–50 分钟），更省心。</p>
+  </div>
+
+  <!-- TRAIN CARD GO -->
+  <div class="train-card">
+    <p style="font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.6);margin-bottom:1rem;text-transform:uppercase;">✅ 推荐去程车次</p>
+    <div class="train-route">
+      <div>
+        <div class="train-city">北京北</div>
+        <div class="train-time">20:58</div>
+      </div>
+      <div class="train-arrow"></div>
+      <div style="text-align:right;">
+        <div class="train-city">呼和浩特东</div>
+        <div class="train-time">23:16</div>
+      </div>
+    </div>
+    <div class="train-meta">
+      <div class="train-meta-item"><label>车次</label><span>G2477</span></div>
+      <div class="train-meta-item"><label>历时</label><span>2小时18分</span></div>
+      <div class="train-meta-item"><label>二等座</label><span>¥209 起</span></div>
+      <div class="train-meta-item"><label>一等座</label><span>¥321 起</span></div>
+    </div>
+    <div class="train-note">💡 G2477 是北京北当晚最后一班到呼和浩特东的高铁，到站 23:16，打车到酒店约 20 分钟，00:00 前能入住。建议提前 30 天购票，周五晚较热门。</div>
+  </div>
+</div>
+
+<!-- ===== DAY 1 ===== -->
+<div id="day1" class="container">
+  <div class="section-header">
+    <div class="day-badge">DAY 01 · FRIDAY</div>
+    <h2 class="section-title">抵达青城 — 深夜落脚</h2>
+    <p class="section-date">23:16 抵达呼和浩特东，入住酒店，次日精力充沛</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="time-label">23:16 — 00:00</div>
+      <div class="timeline-card">
+        <div class="card-title">🏨 入住 · 两晚都住这里</div>
+        <div class="card-body">
+          从呼和浩特东站打车约 15–20 分钟进市区，两晚（周五+周六）都住同一家酒店，无需频繁换行李。<br><br>
+          <strong>首选：内蒙古凯宾斯基饭店</strong>（市中心，出行方便，有行李寄存）<br>
+          <strong>备选：呼和浩特希尔顿酒店 / 维也纳国际酒店</strong><br><br>
+          📌 周六自驾去草原，不住蒙古包——改为当天往返，晚上回呼市睡好觉，周日精神更好。
+        </div>
+        <div class="card-tags">
+          <span class="tag">凯宾斯基 ¥600+/晚</span>
+          <span class="tag sky">希尔顿 ¥500+/晚</span>
+          <span class="tag">两晚同一家</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="time-label">到达当晚</div>
+      <div class="timeline-card">
+        <div class="card-title">🍜 深夜宵夜（轻食即可）</div>
+        <div class="card-body">
+          到得晚，不建议大吃大喝。酒店周边找一碗<strong>羊杂碎</strong>或便利店解决，养精蓄锐迎接周六草原大日。
+        </div>
+        <div class="card-tags"><span class="tag">羊杂碎 ¥20–30</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 2 ===== -->
+<div id="day2" class="container">
+  <div class="section-header">
+    <div class="day-badge day2">DAY 02 · SATURDAY</div>
+    <h2 class="section-title">自驾草原 — 骑马 · 日落 · 冰煮羊</h2>
+    <p class="section-date">当天往返希拉穆仁，傍晚回市区，晚上吃冰煮羊</p>
+  </div>
+
+  <div class="highlight-box">
+    <p>🚗 <strong>自驾方案：</strong>呼市 → 希拉穆仁草原约 90km，走 G6 京藏高速翻越阴山，<strong>车程约 1.5–2 小时</strong>。早 7:30 出发，约 9:30 抵达，傍晚 17:00 前返回，全程当天来回，晚上回呼市吃冰煮羊。提前在神州/一嗨/悟空 App 预订 <strong>SUV 车型</strong>。</p>
+  </div>
+
+  <div class="timeline green-line">
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">07:00 — 07:30</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🚗 酒店出发 · 早餐在路上</div>
+        <div class="card-body">
+          酒店附近买个<strong>焙子（烧饼）</strong>带走——这是呼市人的早餐灵魂。7:30 上路，避开市区早高峰，沿 G6 北行翻越阴山。阴山观景台是隐藏的打卡点，云海效果极佳，可停车 5 分钟拍一拍。
+        </div>
+        <div class="card-tags">
+          <span class="tag green">焙子 ¥2–3/个</span>
+          <span class="tag">全程约 1.5h</span>
+          <span class="tag">阴山观景台打卡</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">09:00 — 09:30</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🌿 抵达希拉穆仁 · 迎宾仪式</div>
+        <div class="card-body">
+          进入景区，体验<strong>下马酒 + 献哈达</strong>蒙古族迎宾仪式。立刻换上租借的蒙古袍，趁上午光线最柔和拍第一波照片！<br><br>
+          景区门票约 ¥60/人，蒙古袍租借 ¥30–50/套。
+        </div>
+        <div class="card-tags">
+          <span class="tag">门票约 ¥60</span>
+          <span class="tag green">蒙古袍 ¥30–50</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">09:30 — 12:00</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🐎 草原骑马 · 三站深度游</div>
+        <div class="card-body">
+          跟随马倌骑马游览三大点：<br>
+          <strong>① 高草地</strong>——草浪翻滚，最佳骑马出片地<br>
+          <strong>② 敖包山</strong>——登顶俯瞰草原全景，圣地感强<br>
+          <strong>③ 草原沼泽湿地</strong>——小众冷色系，背景出挑<br><br>
+          ⚠️ 上马左上左下，紧握铁环，禁止在马背上拍照/接电话。
+        </div>
+        <div class="card-tags">
+          <span class="tag green">骑马 ¥280–380/人</span>
+          <span class="tag">约 2.5 小时</span>
+          <span class="tag sky">加购跑马 ¥80</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">12:00 — 14:00</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🍖 草原午餐 + 下午活动</div>
+        <div class="card-body">
+          营地大帐享用<strong>手把肉 + 咸奶茶 + 炒米</strong>。午后继续拍照——此时光线偏暖，草地泛金黄，是蒙古袍出片的黄金时段。<br><br>
+          可参与<strong>射箭、摔跤体验</strong>，也可骑马再来一圈。
+        </div>
+        <div class="card-tags">
+          <span class="tag">手把肉人均 ¥80+</span>
+          <span class="tag green">射箭体验 ¥30</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">16:30 — 17:30</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🌅 日落前最后出片 · 驾车返回</div>
+        <div class="card-body">
+          利用 16:30 前后光线出片（黄金时段），拍逆光草原剪影。<strong>17:00 启程返回</strong>呼市，约 18:30–19:00 回到市区。<br><br>
+          💡 如果天气超好舍不得走，可推迟到 17:30 出发，但晚餐就要晚点。
+        </div>
+        <div class="card-tags">
+          <span class="tag green">黄金光线 16:30–17:00</span>
+          <span class="tag">返程约 1.5h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">19:30 — 21:30</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">🍲 周六晚餐 · <span style="color:var(--red)">泽成冰煮羊</span>（必去！）</div>
+        <div class="card-body">
+          这是呼和浩特最值得排队的一家餐厅！<br><br>
+          <strong>冰煮羊</strong>是内蒙古独特吃法——锅底用冰代替水，放入羊肉，加三层秘制调料（含酸奶），盖锅煮约 20 分钟。冰镇后肉质收紧再受热膨开，鲜嫩不老，奶白色汤底香而不腥。<br><br>
+          📍 <strong>泽成冰煮羊（三分店）</strong>——口碑最稳，经常排队，建议提前到店等位或预约。<br>
+          必点：冰煮羊 + 蒙古豆腐 + 一碗米饭<br>
+          人均约 ¥80–120
+        </div>
+        <div class="card-tags">
+          <span class="tag food">泽成冰煮羊</span>
+          <span class="tag red">人均 ¥80–120</span>
+          <span class="tag">建议提前等位</span>
+          <span class="tag food">冰煮羊必点</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot grass"></div>
+      <div class="time-label grass">21:30 — 23:00</div>
+      <div class="timeline-card grass-card">
+        <div class="card-title">📸 饭后散步 · 大召寺夜景出片</div>
+        <div class="card-body">
+          饭后步行去<strong>大召寺</strong>，蓝调时分金色寺庙配深蓝天空，是小红书爆款机位。散步消食，顺手出片，完美结束周六。
+        </div>
+        <div class="card-tags">
+          <span class="tag">免费打卡</span>
+          <span class="tag sky">蓝调长曝光</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== DAY 3 ===== -->
+<div id="day3" class="container">
+  <div class="section-header">
+    <div class="day-badge day3">DAY 03 · SUNDAY</div>
+    <h2 class="section-title">响沙湾沙漠 — 踏沙而归</h2>
+    <p class="section-date">早餐稍麦，自驾响沙湾，傍晚赶高铁回北京</p>
+  </div>
+
+  <div class="highlight-box">
+    <p>🚗 <strong>自驾距离：</strong>呼市 → 响沙湾约 160km，走呼包高速，<strong>车程约 1.5–2 小时</strong>。建议 <strong>08:30 出发</strong>，10:00–10:30 抵达景区，游玩 3.5–4 小时，<strong>14:30 离开</strong>，16:30 回呼市还车，赶 <strong>18:41</strong> 的 G2476 回北京。</p>
+  </div>
+
+  <div class="timeline red-line">
+
+    <div class="timeline-item">
+      <div class="timeline-dot sand"></div>
+      <div class="time-label sand">07:30 — 08:30</div>
+      <div class="timeline-card sand-card">
+        <div class="card-title">🥟 呼市早餐 · 烧麦必吃</div>
+        <div class="card-body">
+          周日早晨先吃一顿<strong>烧麦（稍麦）</strong>，这是呼市的灵魂早餐——羊肉大葱馅，皮薄馅厚，配一壶砖茶。推荐大召寺附近的<strong>德顺源</strong>或<strong>白府街烧麦馆</strong>，8:00 开门，趁热出发。
+        </div>
+        <div class="card-tags">
+          <span class="tag food">烧麦 ¥20–30/笼</span>
+          <span class="tag">砖茶配炒米</span>
+          <span class="tag">呼市必吃早餐</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot sand"></div>
+      <div class="time-label sand">08:30 — 10:30</div>
+      <div class="timeline-card sand-card">
+        <div class="card-title">🚗 自驾前往响沙湾</div>
+        <div class="card-body">
+          走呼包高速全程高速，路况好。出发前在服务区买好水（人均 2L+，沙漠消耗大）和防晒喷雾。响沙湾是<strong>国家 5A 级景区</strong>，中国三大鸣沙山之一，位于库布其沙漠东端。
+        </div>
+        <div class="card-tags">
+          <span class="tag red">约 160km · 全程高速</span>
+          <span class="tag">约 2h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot sand"></div>
+      <div class="time-label sand">10:30 — 14:30</div>
+      <div class="timeline-card sand-card">
+        <div class="card-title">🏜 响沙湾游玩全攻略 · 约 4 小时</div>
+        <div class="card-body">
+          选<strong>仙沙岛套票（约 ¥280/人）</strong>，含以下项目一次性打包：<br><br>
+          🚗 <strong>沙漠冲浪车</strong>——全场最刺激，必坐第一个<br>
+          🚗 <strong>过沙车 / 沙漠摩托车</strong>——越野感十足<br>
+          🛝 <strong>高空滑索</strong>——从沙顶飞跃，俯拍视角绝<br>
+          🚲 <strong>轨道自行车</strong>——情侣必体验，沙漠里骑车<br>
+          🎭 <strong>中心舞台演出</strong>——鄂尔多斯婚礼民族歌舞<br><br>
+          <strong>套票外单独购买：</strong><br>
+          🐪 骑骆驼 ¥100–150（超级出片，强烈推荐！）<br>
+          🛷 滑沙 ¥20/次（110m 高差，刺激）<br>
+          🧦 沙袜 ¥10（防沙进鞋必买）
+        </div>
+        <div class="card-tags">
+          <span class="tag red">仙沙岛套票 ¥280</span>
+          <span class="tag">骆驼 ¥100+</span>
+          <span class="tag">滑沙 ¥20</span>
+          <span class="tag red">游玩约 3.5–4h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot sand"></div>
+      <div class="time-label sand">14:30 — 16:30</div>
+      <div class="timeline-card sand-card">
+        <div class="card-title">🚗 驾车返回呼市 · 还车</div>
+        <div class="card-body">
+          <strong>14:30 必须离开景区</strong>，周日下午出景区会有车流，留足 2 小时。16:30 左右抵达呼市还车点，打车/地铁前往<strong>呼和浩特东站</strong>，约 20 分钟，17:30 前到站候车。
+        </div>
+        <div class="card-tags">
+          <span class="tag red">14:30 准时出发</span>
+          <span class="tag">约 2h 返程</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot sand"></div>
+      <div class="time-label sand">18:41 发车</div>
+      <!-- RETURN TRAIN -->
+      <div style="background:var(--ink);color:#fff;padding:1.5rem;border-left:3px solid var(--gold);">
+        <p style="font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.6);margin-bottom:1rem;text-transform:uppercase;">✅ 推荐回程车次</p>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+          <div><div style="font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:700;">呼和浩特东</div><div style="font-size:1.4rem;font-weight:700;color:var(--gold-light);">18:41</div></div>
+          <div style="flex:1;height:1px;background:rgba(201,168,76,.3);min-width:40px;"></div>
+          <div style="text-align:right;"><div style="font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:700;">清河 / 北京北</div><div style="font-size:1.4rem;font-weight:700;color:var(--gold-light);">21:17</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.8rem;">
+          <div><div style="font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:4px;text-transform:uppercase;">车次</div><div style="color:var(--gold-light);font-weight:500;">G2476</div></div>
+          <div><div style="font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:4px;text-transform:uppercase;">历时</div><div style="color:var(--gold-light);font-weight:500;">2小时36分</div></div>
+          <div><div style="font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:4px;text-transform:uppercase;">二等座</div><div style="color:var(--gold-light);font-weight:500;">¥189 起</div></div>
+          <div><div style="font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:4px;text-transform:uppercase;">备选</div><div style="color:var(--gold-light);font-weight:500;">D1052 19:30发</div></div>
+        </div>
+        <div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08);font-size:.78rem;color:rgba(255,255,255,.35);">
+          💡 G2476 到清河，再转地铁/打车回市区。备选 D1052（19:30 发）时间更宽裕，终点北京北，但价格稍贵。周日返程票同样建议提前 30 天购买。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== FOOD SECTION ===== -->
+<section id="food" style="padding:4rem 0;background:#FBF6EE;">
+  <div class="container">
+    <div style="display:inline-block;border:1px solid rgba(139,69,19,.4);color:#8B4513;font-size:10px;letter-spacing:3px;padding:5px 14px;margin-bottom:1rem;text-transform:uppercase;">FOOD GUIDE</div>
+    <h2 class="section-title">三天美食清单</h2>
+    <p class="section-date">呼和浩特必吃 · 覆盖三餐</p>
+
+    <div style="margin-top:2.5rem;">
+
+      <h3 style="font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--ink);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.3);">周六晚 · 重点推荐</h3>
+
+      <div class="food-card">
+        <div class="food-badge">必去 · 招牌</div>
+        <div class="food-name">🍲 泽成冰煮羊（三分店）</div>
+        <div class="food-desc">
+          呼和浩特最具代表性的特色吃法。用冰块代替水做锅底，放入新鲜羊肉，三层秘制调料（密制料 + 酸奶层），盖锅慢煮 20 分钟。冰镇收紧肉质、受热膨开，成品鲜嫩多汁，奶白色汤底香浓不腥。经常排队，建议 19:00 前去排号。<br><br>
+          <strong>必点：</strong>冰煮羊（主角）· 蒙古豆腐 · 烤饼<br>
+          <strong>人均：</strong>¥80–120 · <strong>地址：</strong>呼和浩特市三分店（大众点评搜索"泽成冰煮羊"）
+        </div>
+      </div>
+
+      <h3 style="font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--ink);margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.3);">周日早 · 呼市灵魂早餐</h3>
+
+      <div class="food-card" style="border-top-color:var(--gold);">
+        <div class="food-badge" style="background:var(--gold);">早餐必吃</div>
+        <div class="food-name">🥟 烧麦（稍麦）</div>
+        <div class="food-desc">
+          呼和浩特人的早餐信仰，明末清初流传至今。不同于南方烧麦，这里只用<strong>羊肉大葱馅</strong>，皮薄馅厚，一笼 8 个分量十足，点餐按"几两"算（一两一笼）。配一壶<strong>砖茶</strong>解腻，再加一碗咸奶茶，一顿标准呼市早餐。<br><br>
+          <strong>推荐：</strong>德顺源（大召对面）· 白府街烧麦馆<br>
+          <strong>人均：</strong>¥20–35
+        </div>
+      </div>
+
+      <h3 style="font-family:'Noto Serif SC',serif;font-size:1.1rem;color:var(--ink);margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(201,168,76,.3);">随行小食 · 随时来一口</h3>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+        <div class="food-card" style="border-top-color:var(--grass);">
+          <div class="food-badge" style="background:var(--grass);">早餐</div>
+          <div class="food-name">🫓 焙子</div>
+          <div class="food-desc">呼市人的"馒头"，烤制的咸香面饼，搭配羊杂碎或夹牛肉干，路边小摊几块钱一个，周六早上开车路上吃。</div>
+        </div>
+        <div class="food-card" style="border-top-color:var(--sky);">
+          <div class="food-badge" style="background:var(--sky);">随时</div>
+          <div class="food-name">🫖 咸奶茶</div>
+          <div class="food-desc">蒙古族日常饮品，砖茶 + 牛奶 + 盐熬制，口感咸香醇厚，配炒米或奶酪。草原营地有供应，不接受就算了解文化。</div>
+        </div>
+        <div class="food-card" style="border-top-color:var(--red);">
+          <div class="food-badge" style="background:var(--red);">草原</div>
+          <div class="food-name">🍖 手把肉</div>
+          <div class="food-desc">草原午餐必点，带骨羊肉白水煮，不加任何调料，蘸盐和蒜汁吃，考验羊肉本身的品质。希拉穆仁营地供应。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHOTO GUIDE ===== -->
+<section id="photo" class="photo-section">
+  <div class="container">
+    <div style="display:inline-block;border:1px solid rgba(201,168,76,.4);color:rgba(201,168,76,.7);font-size:10px;letter-spacing:3px;padding:5px 14px;margin-bottom:1rem;text-transform:uppercase;">PHOTO GUIDE</div>
+    <h2 class="photo-section-title">出片攻略 · 机位 · 姿势 · 技巧</h2>
+    <p class="photo-section-sub">参考小红书热门玩法，打造内蒙古旅行大片</p>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <div class="photo-card-icon">🐎</div>
+        <h3>骑马出片</h3>
+        <span class="photo-label">机位建议</span>
+        <p class="photo-tip">同伴站在马的正侧方，蹲低拍，以草地为前景、天空为背景，天空比例留大一些更好看。</p>
+        <span class="photo-label">姿势参考</span>
+        <p class="photo-tip">骑马时身体微微前倾，手握缰绳，眼望远方不看镜头，呈现自然状态。</p>
+        <span class="photo-label">器材建议</span>
+        <p class="photo-tip">85–135mm 长焦端，大光圈虚化草地背景，人马主体突出。禁止在马背上自拍。</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-icon">🌅</div>
+        <h3>草原日落</h3>
+        <span class="photo-label">最佳时段</span>
+        <p class="photo-tip">日落前后各 30 分钟，光线柔和偏橙，是全天出图率最高时段。注意 17:00 前要开始往回走。</p>
+        <span class="photo-label">构图技巧</span>
+        <p class="photo-tip">三分法：人物在下三分之一，侧逆光拍摄剪影，天际线保持水平。</p>
+        <span class="photo-label">热门姿势</span>
+        <p class="photo-tip">展开双臂 / 背对镜头望远方 / 蹲坐抚摸草穗 / 行走中自然回眸</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-icon">🏜</div>
+        <h3>沙漠大片</h3>
+        <span class="photo-label">机位选择</span>
+        <p class="photo-tip">爬到沙丘顶部，人物站沙丘边缘背对镜头望向沙海深处，纵深感极强，气场全开。</p>
+        <span class="photo-label">光线把握</span>
+        <p class="photo-tip">上午 10–11 时沙丘明暗对比最清晰，光影线条几何感强。正午太阳直射最好戴墨镜拍。</p>
+        <span class="photo-label">骆驼出片</span>
+        <p class="photo-tip">骑骆驼时同伴低角度仰拍，骆驼 + 人 + 蓝天构成完美三角构图，¥100 出片超值。</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-icon">🛕</div>
+        <h3>大召寺夜景</h3>
+        <span class="photo-label">时间窗口</span>
+        <p class="photo-tip">日落后 20–40 分钟蓝调时分，天空深蓝寺庙金黄，冷暖对比强烈，是一天内最好出片时段。</p>
+        <span class="photo-label">构图建议</span>
+        <p class="photo-tip">以正门牌楼为框，纳入人物或路人作尺度参照，长曝光拍车流光轨更震撼。</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-icon">🚗</div>
+        <h3>公路自驾</h3>
+        <span class="photo-label">翻山路段</span>
+        <p class="photo-tip">呼市至希拉穆仁翻越阴山约 20km，双向两车道两侧大片草坡，弯道停车拍 S 形公路远延大气。</p>
+        <span class="photo-label">车内视角</span>
+        <p class="photo-tip">副驾位车窗向外伸出手自拍，车门为框 + 草原/沙漠背景，小红书公路片标配构图。</p>
+      </div>
+      <div class="photo-card">
+        <div class="photo-card-icon">👘</div>
+        <h3>蒙古袍出片</h3>
+        <span class="photo-label">租借建议</span>
+        <p class="photo-tip">现场租借 ¥30–50/套，选深蓝或酒红色袍，和草地形成明显色彩对比，比白色更上镜。</p>
+        <span class="photo-label">拍摄时机</span>
+        <p class="photo-tip">上午光线柔和时换上，别留到下午。站在高草地或敖包山顶，自然站立不摆 pose 反而更好看。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUTFIT ===== -->
+<section id="outfit" class="outfit-section">
+  <div class="container">
+    <div style="display:inline-block;border:1px solid rgba(201,168,76,.5);color:var(--ink-mid);font-size:10px;letter-spacing:3px;padding:5px 14px;margin-bottom:1rem;text-transform:uppercase;">OUTFIT GUIDE</div>
+    <h2 class="section-title">穿搭建议 · 场景分类</h2>
+    <div class="outfit-grid">
+      <div class="outfit-card">
+        <span class="outfit-emoji">🌿</span>
+        <h3>草原骑马日</h3>
+        <p><strong>配色：</strong>大地色 + 草绿点缀。卡其/米白宽松衬衫 + 高腰阔腿裤，避免深色（沙尘明显）。<br><br><strong>鞋子：</strong>马丁靴/厚底短靴必须有跟，帆布鞋不适合骑马。<br><br><strong>配件：</strong>草帽 + 棉麻围巾（防晒兼出片）</p>
+      </div>
+      <div class="outfit-card">
+        <span class="outfit-emoji">🏜</span>
+        <h3>沙漠响沙湾日</h3>
+        <p><strong>配色：</strong>白/米白/浅卡其。白色宽松上衣 + 阔腿沙滩裤，金沙背景下明度对比强，自带光感。<br><br><strong>鞋子：</strong>运动凉鞋/厚底拖鞋，不要穿普通运动鞋。<br><br><strong>防晒：</strong>冰袖 + 防晒帽 + 墨镜，沙漠紫外线极强。</p>
+      </div>
+      <div class="outfit-card">
+        <span class="outfit-emoji">👘</span>
+        <h3>蒙古袍场景</h3>
+        <p>直接在草原营地租借，¥30–50/套含头饰。选<strong>深蓝或酒红色</strong>，避免白色（曝光过度）。上午光线最好时穿，拍完换回自己衣服更舒适。</p>
+      </div>
+      <div class="outfit-card">
+        <span class="outfit-emoji">🌙</span>
+        <h3>夜间 · 大召寺</h3>
+        <p>轻薄外套必备（夏夜呼市温差大）。选<strong>纯色深色系</strong>上衣（深蓝/深绿/黑），拍夜景剪影时和暗夜融合，氛围感强。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COST ===== -->
+<section id="cost" class="cost-section">
+  <div class="container">
+    <div style="display:inline-block;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.6);font-size:10px;letter-spacing:3px;padding:5px 14px;margin-bottom:1.2rem;text-transform:uppercase;">Budget Overview</div>
+    <h2 class="photo-section-title">费用总览</h2>
+    <p class="photo-section-sub">人均参考 · 双人出行 · 两晚呼市酒店</p>
+
+    <table class="cost-table">
+      <thead>
+        <tr><th>项目</th><th>明细</th><th>人均费用</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🚄 高铁（往返）</td><td>北京北↔呼和浩特东，G2477/G2476</td><td class="amount">¥398</td></tr>
+        <tr><td>🏨 住宿（2晚）</td><td>呼市酒店 2晚（不住草原蒙古包）</td><td class="amount">¥500–800</td></tr>
+        <tr><td>🚗 租车（2天）</td><td>SUV，双人分摊，约¥400–600/天</td><td class="amount">¥400–600</td></tr>
+        <tr><td>🐎 草原门票 + 骑马</td><td>景区票¥60 + 骑马¥320</td><td class="amount">¥380</td></tr>
+        <tr><td>🏜 响沙湾套票</td><td>仙沙岛套票 + 骑骆驼</td><td class="amount">¥380–430</td></tr>
+        <tr><td>🍲 冰煮羊（周六晚）</td><td>泽成冰煮羊，人均</td><td class="amount">¥80–120</td></tr>
+        <tr><td>🍖 其他餐饮</td><td>3天其余 7–8 餐，烧麦/手把肉/羊杂</td><td class="amount">¥280–380</td></tr>
+        <tr><td>⛽ 油费 + 高速</td><td>总里程约 550km，双人分摊</td><td class="amount">¥150–200</td></tr>
+        <tr><td colspan="2" style="color:rgba(255,255,255,.5);font-size:.8rem;">不含蒙古袍租借、沙袜、购物等零散支出</td><td></td></tr>
+        <tr><td colspan="2"><strong>人均合计（经济方案）</strong></td><td><strong>约 ¥2,600–3,300</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRACTICAL INFO -->
+<section class="practical-section">
+  <div class="container">
+    <h2 class="block-title">实用小贴士</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3><span class="info-icon">📋</span>行前准备清单</h3>
+        <ul class="info-list">
+          <li>提前 30 天购 G2477 去程票（周五晚热门）</li>
+          <li>同步购 G2476 周日回程票</li>
+          <li>提前 7 天预订租车，SUV 优先</li>
+          <li>两晚同一家酒店，提前预订</li>
+          <li>响沙湾套票可美团/携程提前购</li>
+          <li>下载高德地图并离线呼市 + 鄂尔多斯</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3><span class="info-icon">⏱</span>时间节点提醒</h3>
+        <ul class="info-list">
+          <li>周五 18:00 准时出发，不能拖</li>
+          <li>可考虑下班打车到宋家庄/北京北更省心</li>
+          <li>G2477 最晚 20:28 前进站（候车 30 分钟）</li>
+          <li>周日 14:30 必须离开响沙湾</li>
+          <li>周日 17:30 前到呼和浩特东站</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3><span class="info-icon">📷</span>摄影器材清单</h3>
+        <ul class="info-list">
+          <li>相机（广角 + 人像镜）</li>
+          <li>多备一块电池（草原无充电）</li>
+          <li>防沙袋/防尘套（响沙湾必备）</li>
+          <li>手机 + 充电宝</li>
+          <li>小桌面三脚架（日落/夜景）</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3><span class="info-icon">⚠️</span>重要注意事项</h3>
+        <ul class="info-list">
+          <li>骑马必须遵守马倌，禁止马背上拍照</li>
+          <li>草原不要擅自离队</li>
+          <li>响沙湾沙漠带足水，人均 2L+</li>
+          <li>精密电子设备进沙漠前套好防沙袋</li>
+          <li>泽成冰煮羊建议提前 1 小时去排号</li>
+          <li>租车需要驾照原件 + 信用卡押金</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p style="margin-bottom:.5rem;font-size:1rem;color:rgba(255,255,255,.6);letter-spacing:2px;font-family:'Noto Serif SC',serif;">北京亦庄出发 · 草原沙漠星空</p>
+  <p>G2477 出发 · 两晚呼市 · 冰煮羊 · <strong>Claude AI</strong> 出品 · 请在 12306 核实最新车次及票价</p>
+</footer>
+
+</body>
+</html>
